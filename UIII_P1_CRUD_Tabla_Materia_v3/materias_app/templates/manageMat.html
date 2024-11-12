@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5">
+            <h1>Ingresar Materia</h1>
+            <div class="card">
+                <div class="card-body">
+                    <form action="regMat/" method="post">{% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" id="txtcodigo" name="txtcodigo" class="form-control" placeholder="codigo materia" minlenght="1" maxlenght="6" required>
+                        </div>
+                        <div class="form-group py-3">
+                            <input type="text" id="txtnombre" name="txtnombre" class="form-control" placeholder="nombre materia" minlenght="1" maxlenght="100" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="numcreditos" name="numcreditos" clas="form-control"placeholder="creditos materia" minlenght="1" maxlenght="9" value="1" required>
+                        </div>
+                        <div class="form-group py-4">
+                            <button type="submit" class="btn btn-primary">Guardar materias</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5">
+            <h1>Listado de materias</h1>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Codigo</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Creditos</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in mymaterias %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{m.codigo}}</td>
+                            <td>{{m.nombre}}</td>
+                            <td>{{m.creditos}}</td>
+                            <td><a href="selectMat/{{m.codigo}}" class="btn btn-primary">Editar</a></td>
+                            <td><a href="deleteMat/{{m.codigo}}" class="btn btn-danger">Borrar</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
